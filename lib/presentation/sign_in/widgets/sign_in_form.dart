@@ -1,7 +1,10 @@
 import 'dart:developer';
 
 import 'package:another_flushbar/flushbar_helper.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:ddd_sample/application/auth/auth_bloc.dart';
 import 'package:ddd_sample/application/auth/sign_in_form/sign_in_form_bloc.dart';
+import 'package:ddd_sample/presentation/routes/router.gr.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,17 +30,17 @@ class SignInForm extends StatelessWidget {
                 ),
               ).show(context);
             },
-            (_) => {
-              // TODO: Navigate
+            (_) {
+              context.read<AuthBloc>().add(const AuthEvent.authCheckRequested());
+              context.router.replace(const NotesOverviewRoute());
             },
           ),
         );
       },
       builder: (context, state) {
         return Form(
-          autovalidateMode: state.showErrorMessage
-              ? AutovalidateMode.always
-              : AutovalidateMode.disabled,
+          autovalidateMode:
+              state.showErrorMessage ? AutovalidateMode.always : AutovalidateMode.disabled,
           child: ListView(
             children: [
               const Text(
@@ -52,14 +55,8 @@ class SignInForm extends StatelessWidget {
                   labelText: 'Email',
                 ),
                 autocorrect: false,
-                onChanged: (value) =>
-                    context.read<SignInFormBloc>().add(EmailChanged(value)),
-                validator: (_) => context
-                    .read<SignInFormBloc>()
-                    .state
-                    .emailAddress
-                    .value
-                    .fold(
+                onChanged: (value) => context.read<SignInFormBloc>().add(EmailChanged(value)),
+                validator: (_) => context.read<SignInFormBloc>().state.emailAddress.value.fold(
                       (f) => f.maybeMap(
                         invalidEmail: (_) => 'Invalid Email',
                         orElse: () => null,
@@ -75,16 +72,14 @@ class SignInForm extends StatelessWidget {
                 ),
                 obscureText: true,
                 autocorrect: false,
-                onChanged: (value) =>
-                    context.read<SignInFormBloc>().add(PasswordChanged(value)),
-                validator: (_) =>
-                    context.read<SignInFormBloc>().state.password.value.fold(
-                          (f) => f.maybeMap(
-                            shortPassword: (_) => 'Short Password',
-                            orElse: () => null,
-                          ),
-                          (r) => null,
-                        ),
+                onChanged: (value) => context.read<SignInFormBloc>().add(PasswordChanged(value)),
+                validator: (_) => context.read<SignInFormBloc>().state.password.value.fold(
+                      (f) => f.maybeMap(
+                        shortPassword: (_) => 'Short Password',
+                        orElse: () => null,
+                      ),
+                      (r) => null,
+                    ),
               ),
               const SizedBox(height: 8),
               Row(
@@ -114,9 +109,7 @@ class SignInForm extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  context
-                      .read<SignInFormBloc>()
-                      .add(const SignInWithGooglePressed());
+                  context.read<SignInFormBloc>().add(const SignInWithGooglePressed());
                 },
                 child: const Text('Sign In With Google'),
               ),

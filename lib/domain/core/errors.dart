@@ -1,5 +1,7 @@
 import 'package:ddd_sample/domain/core/failures.dart';
 
+class NotAuthenticatedError extends Error {}
+
 class UnexpectedErrorValue extends Error {
   final ValueFailure valueFailure;
 
@@ -7,8 +9,7 @@ class UnexpectedErrorValue extends Error {
 
   @override
   String toString() {
-    const explanation =
-        'Encountered a ValueFailure at an unrecoverable point. Termineting.';
+    const explanation = 'Encountered a ValueFailure at an unrecoverable point. Termineting.';
     return Error.safeToString('$explanation Failure was: $valueFailure');
   }
 }
