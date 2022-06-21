@@ -33,7 +33,7 @@ class ColorField extends StatelessWidget {
                           color == itemColor ? const BorderSide(width: 1.5) : BorderSide.none,
                     ),
                   ),
-                  child: Container(height: 50, width: 50),
+                  child: const SizedBox(height: 50, width: 50),
                 ),
               );
             },

@@ -79,15 +79,10 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
           email: state.emailAddress,
           password: state.password,
         );
-
-        emit(state.copyWith(
-          isSubmitting: false,
-          authFailureOrSuccessOption: some(failureOrSuccess),
-        ));
       }
 
-      //! optionOf => failureOrSuccess == null ? none() : some(failureOrSuccess)
       emit(state.copyWith(
+        isSubmitting: false,
         showErrorMessage: true,
         authFailureOrSuccessOption: optionOf(failureOrSuccess),
       ));
@@ -111,7 +106,6 @@ class SignInFormBloc extends Bloc<SignInFormEvent, SignInFormState> {
         );
       }
 
-      //! optionOf => failureOrSuccess == null ? none() : some(failureOrSuccess)
       emit(state.copyWith(
         isSubmitting: false,
         showErrorMessage: true,

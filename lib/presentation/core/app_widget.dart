@@ -1,6 +1,5 @@
 import 'package:ddd_sample/injection.dart';
 import 'package:ddd_sample/presentation/routes/router.gr.dart';
-import 'package:ddd_sample/presentation/sign_in/sign_in_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ddd_sample/application/auth/auth_bloc.dart';
@@ -14,8 +13,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) =>
-              getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
+          create: (context) => getIt<AuthBloc>()..add(const AuthEvent.authCheckRequested()),
         ),
       ],
       child: MaterialApp.router(

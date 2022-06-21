@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_route/auto_route.dart';
 import 'package:ddd_sample/application/notes/note_actor/note_actor_bloc.dart';
 import 'package:ddd_sample/domain/note/note.dart';

@@ -86,7 +86,7 @@ class TodoTile extends HookWidget {
                           empty: (_) => 'Can not be empty',
                           exceedingLegth: (_) => 'Too long',
                           multiline: (_) => 'Has to be single line',
-                          orElse: () {},
+                          orElse: () => null,
                         ),
                         (_) => null,
                       ),
